@@ -34,7 +34,8 @@ export default function CustomerSubscriptions() {
     try {
       setIsLoading(true);
       const headers = { Authorization: `Bearer ${token}` };
-      const res = await axios.get("http://localhost:5000/api/subscriptions/my-subscriptions", { headers });
+      const BASE_URL = import.meta.env.VITE_API_URL ?? "";
+      const res = await axios.get(`${BASE_URL}/api/subscriptions/my-subscriptions`, { headers });
       setSubscriptions(res.data.data || []);
       setError(null);
     } catch (err) {
@@ -88,7 +89,8 @@ export default function CustomerSubscriptions() {
     try {
       setActionLoading(true);
       const headers = { Authorization: `Bearer ${token}` };
-      await axios.patch(`http://localhost:5000/api/subscriptions/${id}/resume`, {}, { headers });
+      const BASE_URL = import.meta.env.VITE_API_URL ?? "";
+      await axios.patch(`${BASE_URL}/api/subscriptions/${id}/resume`, {}, { headers });
       await fetchSubscriptions();
     } catch (err) {
       alert(err.response?.data?.message || "Failed to resume subscription");
@@ -105,7 +107,8 @@ export default function CustomerSubscriptions() {
     try {
       setActionLoading(true);
       const headers = { Authorization: `Bearer ${token}` };
-      await axios.patch(`http://localhost:5000/api/subscriptions/${selectedSub}/pause`, {
+      const BASE_URL = import.meta.env.VITE_API_URL ?? "";
+      await axios.patch(`${BASE_URL}/api/subscriptions/${selectedSub}/pause`, {
         pauseStart,
         pauseEnd
       }, { headers });
@@ -122,7 +125,8 @@ export default function CustomerSubscriptions() {
     try {
       setActionLoading(true);
       const headers = { Authorization: `Bearer ${token}` };
-      await axios.patch(`http://localhost:5000/api/subscriptions/${selectedSub}/cancel`, {}, { headers });
+      const BASE_URL = import.meta.env.VITE_API_URL ?? "";
+      await axios.patch(`${BASE_URL}/api/subscriptions/${selectedSub}/cancel`, {}, { headers });
       setModalType(null);
       await fetchSubscriptions();
     } catch (err) {
