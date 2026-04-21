@@ -3,7 +3,7 @@
  * Serves the React frontend static build alongside the Express API.
  * Used inside the Docker container so everything runs on a single port.
  */
-require("dotenv").config();
+require("dotenv").config({ override: false });
 const path = require("path");
 const express = require("express");
 const app = require("./app");
