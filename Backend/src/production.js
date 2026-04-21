@@ -24,8 +24,9 @@ app.use((req, res, next) => {
 });
 
 // ── Start server ──────────────────────────────────────────────────
-connectDB();
-
+// Listen FIRST so Render's health check passes immediately,
+// then connect to DB asynchronously in the background.
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Production server running on port ${PORT}`);
+  connectDB().catch((err) => console.error("DB init error:", err.message));
 });
